@@ -4,6 +4,9 @@
     "description": "Stream Announcements and Assigning Roles",
     "main": "bot.js",
     "author": "CheeseLiker",
+    "scripts": {
+        "start": "node bot.js"
+    },
     "dependencies": {
         "discord.io": "https://github.com/woor/discord.io/tarball/gateway_v6",
         "winston": "^3.0.0"
