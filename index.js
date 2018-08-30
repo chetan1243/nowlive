@@ -234,7 +234,7 @@ function postDiscord(server, twitchChannel, err, res) {
         try {
             const guild = client.guilds.find("name", server.name);
             const discordChannel = guild.channels.find("name", server.discordChannels[0]);
-            const discordEmbed = createEmbed(server, twitchChannel, res);
+            // const discordEmbed = createEmbed(server, twitchChannel, res);
 
             discordChannel.fetchMessage(twitchChannel.messageid).then(
                 message => message.delete().then((message) => {
