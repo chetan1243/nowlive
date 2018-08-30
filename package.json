@@ -1,15 +1,27 @@
 {
-    "name": "greeter-bot",
-    "version": "1.0.0",
-    "description": "Stream Announcements and Assigning Roles",
-    "main": "bot.js",
-    "author": "CheeseLiker",
-    "scripts": {
-        "start": "node bot.js"
-    },
-    "dependencies": {
-        "discord.io": "https://github.com/woor/discord.io/tarball/gateway_v6",
-        "discord.js": "^11.4.2",
-        "winston": "^3.0.0"
-    }
+  "name": "cheese-discord-bot",
+  "version": "1.0.0",
+  "description": "Discord Twitch Live Notifications and Live Role",
+  "main": "index.js",
+  "author": "CheeseLiker",
+  "license": "ISC",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CheeseLiker/Discord-Bot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/CheeseLiker/Discord-Bot/issues"
+  },
+  "homepage": "https://github.com/CheeseLiker/Discord-Bot",
+  "dependencies": {
+    "discord.js": "^11.3.2",
+    "forever-monitor": "^1.7.1",
+    "npm": "^6.2.0",
+    "twitch-api-v5": "^2.0.4",
+    "winston": "^3.0.0"
+  }
 }
