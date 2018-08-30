@@ -3,6 +3,6 @@ config/
 *.log
 package-lock.json
 todo
-# channels.json
+channels.json
 dumpspace.js
 dbot.js

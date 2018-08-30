@@ -1,30 +1,4 @@
-winston = require('winston')
-
-const alignedWithColorsAndTime = winston.format.combine(
-    winston.format.colorize(),
-    winston.format.timestamp(),
-    winston.format.align(),
-    winston.format.printf((info) => {
-        const {
-            timestamp, level, message, ...args
-        } = info;
-
-        const ts = timestamp.slice(0, 19).replace('T', ' ');
-        return `${ts} [${level}]: ${message} ${Object.keys(args).length ? JSON.stringify(args, null, 2) : ''}`;
-    }),
-);
-
-const logger = winston.createLogger({
-    level: 'info',
-    format: winston.format.json(),
-    transports: [
-        new winston.transports.Console({
-            format: alignedWithColorsAndTime
-        }),
-        new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
-        // new winston.transports.File({ filename: 'logs/combined.log' })
-    ]
-});
+const { logger } = require('./logger.js');
 
 const
     fs = require('fs'),
@@ -35,7 +9,6 @@ const
     timeout = 4 * 60 * 1000,
     { fancyTimeFormat } = require('./utils.js');
 
-// var discordtoken, twitchtoken;
 try {
     var { discordtoken, twitchtoken } = require('./config/config.json');
 } catch (e) {
@@ -63,7 +36,7 @@ client.on('ready', () => {
     logger.info("Reading file: " + channelPath);
     var file = fs.readFileSync(channelPath, { encoding: "utf-8" });
     client.servers = JSON.parse(file);
-    client.user.setGame('with knives 🔪🧀');
+    client.user.setActivity('with knives 🔪🧀', { type: 'PLAYING' });
 
     // Tick twice at startup for weird bug reason
     tick();
@@ -96,7 +69,7 @@ client.on('message', message => {
 
     let permissions = ['user'];
 
-    if (message.member.roles.exists("name", server.role)) {
+    if (message.member.roles.some(val => server.role === val)) {
         permissions.push('admin');
     }
 
@@ -200,8 +173,8 @@ function postDiscord(server, twitchChannel, err, res) {
     if (res.stream != null && twitchChannel.messageid == null) {
         // Do new message code
         try {
-            const guild = client.guilds.find("name", server.name);
-            const discordChannel = guild.channels.find("name", server.discordChannels[0]);
+            const guild = client.guilds.find(guild => guild.name === server.name);
+            const discordChannel = guild.channels.find(discordChannel => discordChannel.name === server.discordChannels[0]);
             const discordEmbed = createEmbed(server, twitchChannel, res);
             const discordLive = res.stream.channel.display_name + " is <@&484332514110996490>!"
 
@@ -220,8 +193,8 @@ function postDiscord(server, twitchChannel, err, res) {
     } else if (res.stream != null && twitchChannel.messageid != null) {
         // Do edit message code
         try {
-            const guild = client.guilds.find("name", server.name);
-            const discordChannel = guild.channels.find("name", server.discordChannels[0]);
+            const guild = client.guilds.find(guild => guild.name === server.name);
+            const discordChannel = guild.channels.find(discordChannel => discordChannel.name === server.discordChannels[0]);
             const discordEmbed = createEmbed(server, twitchChannel, res);
             const discordLive = res.stream.channel.display_name + " is <@&484332514110996490>!"
 
@@ -239,8 +212,8 @@ function postDiscord(server, twitchChannel, err, res) {
     } else if (res.stream == null && twitchChannel.messageid != null) {
         // Do delete message code
         try {
-            const guild = client.guilds.find("name", server.name);
-            const discordChannel = guild.channels.find("name", server.discordChannels[0]);
+            const guild = client.guilds.find(guild => guild.name === server.name);
+            const discordChannel = guild.channels.find(discordChannel => discordChannel.name === server.discordChannels[0]);
             // const discordEmbed = createEmbed(server, twitchChannel, res);
 
             discordChannel.fetchMessage(twitchChannel.messageid).then(

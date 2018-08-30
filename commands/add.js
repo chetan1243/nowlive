@@ -1,4 +1,4 @@
-const { print } = require('../utils.js');
+const { logger } = require('../logger.js');
 
 module.exports = {
     name: 'add',
@@ -19,7 +19,7 @@ module.exports = {
 
         client.twitchapi.users.usersByName({ users: streamer }, (err, res) => {
             if (err)
-                print(err);
+                logger.error(err);
             if (!res)
                 return message.reply("API error finding user, rate limited: " + streamer)
 
@@ -28,6 +28,7 @@ module.exports = {
                     name: streamer, timestamp: 0,
                     online: false
                 });
+                logger.info(`[${server.name}] Added Twitch Channel: ${streamer}`);
                 message.reply("Added " + streamer + ".");
                 //tick();
             } else {
