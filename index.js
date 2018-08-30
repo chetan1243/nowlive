@@ -35,8 +35,13 @@ const
     timeout = 4 * 60 * 1000,
     { fancyTimeFormat } = require('./utils.js');
 
-const discordtoken = process.env.discordtoken || require('./config/config.json');
-const twitchtoken = process.env.twitchtoken || require('./config/config.json');
+// var discordtoken, twitchtoken;
+try {
+    var { discordtoken, twitchtoken } = require('./config/config.json');
+} catch (e) {
+    var discordtoken = process.env.discordtoken;
+    var twitchtoken = process.env.twitchtoken;
+}
 
 client.twitchapi = require('twitch-api-v5');
 // var moment = require('moment');
