@@ -48,6 +48,7 @@ client.on('message', message => {
     let index = indexOfObjectByName(client.servers, message.guild.name);
     var server = client.servers[index];
 
+    if(message.type === "PINS_ADD") return message.delete();
     if (!message.content.startsWith(server.prefix) || message.author.bot) return;
 
     const args = message.content.slice(server.prefix.length).split(/ +/);
