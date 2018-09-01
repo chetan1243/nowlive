@@ -5,7 +5,7 @@
         "lastPrefix": "~",
         "role": "botadmin",
         "discordChannels": [
-            "testing-pls-ignore"
+            "announcements"
         ],
         "twitchChannels": [
             {
