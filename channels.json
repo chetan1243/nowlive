@@ -3,7 +3,7 @@
         "name": "CheeseMongers",
         "prefix": "!",
         "lastPrefix": "~",
-        "role": "Cheese",
+        "role": "botadmin",
         "discordChannels": [
             "testing-pls-ignore"
         ],
