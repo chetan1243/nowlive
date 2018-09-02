@@ -111,7 +111,7 @@ client.on('message', message => {
 });
 
 client.on("guildMemberAdd", member => {
-    member.addRole(['476662770209783808','484332514110996490']) // Add roles to user on join
+    member.addRoles(['476662770209783808','484332514110996490']) // Add roles to user on join
         .then(() => logger.info("Added Roles to New User: " + member.name))
         .catch((e) => logger.error("Add Roles Error: " + e));
 });
